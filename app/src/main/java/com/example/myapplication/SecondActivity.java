@@ -30,7 +30,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        //Hook//
+        //Hook or Point Varible byID//
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -38,20 +38,22 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         //Tool Bar//
         setSupportActionBar(toolbar);
         //navigation drawer menu//
+        //bring nav front//
         navigationView.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigatin_drawer_open,R.string.navigatin_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigatin_drawer_open, R.string.navigatin_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState==null) {
+        navigationView.setNavigationItemSelectedListener(this);
+        //Prevent create more fragment from go to home and back to app//
+        if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_home);
             //Defualt Fragment//
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Homefragment()).commit();
         }
 
     }
-
+    //close Drawer with back button //
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START))
@@ -65,7 +67,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     }
 
 
-    //Nav Select
+    //NavigationItem Select//
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item)
     {
@@ -91,11 +93,11 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
                 finish();
                 break;
         }
-
+        //Close Drawer after selected//
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    //Goto mainactivity//
     public void newactivtiy(View v)
     {
         Intent i = new Intent(this,MainActivity.class);
